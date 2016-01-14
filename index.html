@@ -9,25 +9,37 @@
     <style type="text/css">
     	
     	.module-container {
-    		padding:20px;
+    		padding:10px;
     		border:solid 1px grey;
-    		width:800px;
-    		display:-webkit-flex;
-    		display:flex;
-    		-webkit-flex-direction:row;
-    		flex-direction:row;
+    		width:946px;
+    		display: -webkit-flex;
+    		display: flex;
     		-webkit-align-items: center;
     		align-items: center;
+    		-webkit-justify-content: center;
+    		justify-content: center;
+    		-webkit-flex-flow: row wrap;
+    		flex-flow: row wrap;
+    		-webkit-align-content: stretch;
+    		align-content: stretch;
     	}
 
     	.small-module {
+    		margin:10px;
     		padding:5px;
     		border:solid 1px grey;
-    		width:240px;
+    		/*width:288px;*/
+    		-webkit-flex: 0 0 283.33px;
+    		flex: 0 0 283.33px;
     	}
 
     	.large-module {
-    		width:780px;
+    		margin:10px;
+    		padding:5px;
+    		border:solid 1px black;
+    		/*width:780px;*/
+    		-webkit-flex: 0 0 914px;
+    		flex: 0 0 914px;
     	}
 
     	.add-button {
@@ -53,6 +65,21 @@
     		<div class="add-button">+</div>
     		<div class="legend">Add your first module.</div>
     	</div>
+
+    	<div class="small-module">
+    		<div class="add-button">+</div>
+    		<div class="legend">Add your first module.</div>
+    	</div>
+
+    	<div class="small-module">
+    		<div class="add-button">+</div>
+    		<div class="legend">Add your first module.</div>
+    	</div>
+
+    	<div class="large-module">
+    		<div class="add-button">+</div>
+    		<div class="legend">Add your first module.</div>
+    	</div>    	
     </div>
 
   </body>
