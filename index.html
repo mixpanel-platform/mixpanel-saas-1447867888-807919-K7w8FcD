@@ -72,72 +72,12 @@
   </head>
   <body class="mixpanel-platform-body">
 
-    <div class="module-container">
-        <div class="large-module">
-					<div class="mixpanel-platform-section">
-						<div id="eventSelect0" style="float: left;"></div>
-						<div class="by" class="mixpanel-platform-label" style="margin-left: 10px; display: none;">by</div>
-						<div id="propSelect0" style="float: left;"></div>
-						<div id="dateSelect0" style="float: right;"></div>
-						<div style="clear: both;"></div>
-						<div class="graph"></div>
-					</div>   	
-        </div>	
-
-        <div class="large-module">
-					<div class="mixpanel-platform-section">
-						<div id="eventSelect1" style="float: left;"></div>
-						<div class="by" class="mixpanel-platform-label" style="margin-left: 10px; display: none;">by</div>
-						<div id="propSelect1" style="float: left;"></div>
-						<div id="dateSelect1" style="float: right;"></div>
-						<div style="clear: both;"></div>
-						<div class="graph"></div>
-					</div>   	
-        </div>	
+    <div class="module-container">	
 
     </div>
 
 	  <script>
 
-	  	// Dynamically create and set events, props, and dates for each segmentation module.
-			$('#eventSelect0').each(function(i){
-				window["eventSelect" + i] = $(this).MPEventSelect();
-				// alert(window["eventSelect" + i]);
-	  	})
-
-			$('#propSelect0').each(function(i){
-				window["propSelect" + i] = $(this).MPPropertySelect();
-				// alert(window["propSelect" + i]);
-	  	})
-
-			$('#dateSelect0').each(function(i){
-				window["dateSelect" + i] = $(this).MPDatepicker();
-				// alert(window["dateSelect" + i]);
-	  	})	  		  	
-
-			var eventGraph  = $('.graph').MPChart({chartType: 'line'});
-			
-			var runQuery = function(i) {
-			  var eventName = window["eventSelect" + i].MPEventSelect('value'),
-			      propName  = window["propSelect" + i].MPPropertySelect('value'),
-			      dateRange = window["dateSelect" + i].MPDatepicker('value');
-			  if (eventName) {
-			    MP.api.segment(eventName, propName, dateRange).done(function(results) {
-			      eventGraph.MPChart('setData', results);
-			      // eventTable.MPTable('setData', results);
-			    });
-			  }
-			};
-
-			$('.eventSelect').on('change', function(e, eventName) {
-			  window["propSelect" + i].MPPropertySelect('setEvent', eventName);
-			  $(".by").show();
-			  runQuery(i);
-			});
-			window["propSelect0"].on('change', runQuery(0));
-			window["propSelect1"].on('change', runQuery(1));
-			window["dateSelect0"].on('change', runQuery(0));
-			window["dateSelect1"].on('change', runQuery(1));
 	  </script>
 
   </body>
