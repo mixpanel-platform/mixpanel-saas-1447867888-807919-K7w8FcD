@@ -24,31 +24,29 @@
     		align-content: stretch;
     	}
 
-    	.small-module {
-    		margin:10px;
-    		padding:5px;
-    		border:solid 1px grey;
-    		/*width:288px;*/
+        .modal {
+            
+        }
+        
+        .module {
+           margin:10px;
+           padding:5px;
+           border:solid 1px grey;   
+        }
+
+    	.small {
     		-webkit-flex: 0 0 283px;
     		flex: 0 0 283px;
     	}
 
-    	.large-module {
-    		margin:10px;
-    		padding:5px;
-    		border:solid 1px black;
-    		/*width:780px;*/
+        .medium {
+            -webkit-flex: 0 0 598px;
+            flex: 0 0 598px;
+        }
+
+    	.large {
     		-webkit-flex: 0 0 914px;
     		flex: 0 0 914px;
-    	}
-
-    	.medium-module {
-    		margin:10px;
-    		padding:5px;
-    		border:solid 1px white;
-    		/*width:780px;*/
-    		-webkit-flex: 0 0 598px;
-    		flex: 0 0 598px;
     	}
 
     	.add-button {
@@ -62,50 +60,36 @@
     		text-align:center;
     	}
 
+        .add {
+            -webkit-flex: 0 0 283px;
+            flex: 0 0 283px;
+            order:1;
+        }
+
     </style>
+
   </head>
+
   <body class="mixpanel-platform-body">
-    <script>
-      // Run queries and display results here
-    </script>
 
     <div class="module-container">
-    	<div class="small-module">
-    		<div class="add-button">+</div>
-    		<div class="legend">Add your first module.</div>
-    	</div>
 
-    	<div class="small-module">
-    		<div class="add-button">+</div>
-    		<div class="legend">Add your first module.</div>
-    	</div>
+        <div id="add-module" class="add module"><div class='legend'>Add a module</div></div>
 
-    	<div class="small-module">
-    		<div class="add-button">+</div>
-    		<div class="legend">Add your first module.</div>
-    	</div>
-
-    	<div class="large-module">
-    		<div class="add-button">+</div>
-    		<div class="legend">Add your first module.</div>
-    	</div>    
-
-    	<div class="small-module">
-    		<div class="add-button">+</div>
-    		<div class="legend">Add your first module.</div>
-    	</div>
-
-    	<div class="medium-module">
-    		<div class="add-button">+</div>
-    		<div class="legend">Add your first module.</div>
-    	</div>
-
-    	<div class="medium-module">
-    		<div class="add-button">+</div>
-    		<div class="legend">Add your first module.</div>
-    	</div>
+        <div id="add-modal" class="modal">
+            
+        </div>
 	
     </div>
+
+    <script type="text/javascript">
+        var module = "<div class='small module'><div class='add-button'>+</div><div class='legend'>Add your first module.</div></div>";
+        var modal = 
+
+        $("#add-module").click(function(){
+
+        });
+    </script>
 
   </body>
 </html>
