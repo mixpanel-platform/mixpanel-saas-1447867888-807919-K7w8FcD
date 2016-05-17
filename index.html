@@ -24,15 +24,27 @@
     		align-content: stretch;
     	}
 
-        .modal {
-            
-        }
-        
-        .module {
-           margin:10px;
-           padding:5px;
-           border:solid 1px grey;   
-        }
+      .modal {
+
+      }
+
+      #overlay {
+        background-color: #3c4c63;
+        height: 100%;
+        left: 0;
+        opacity: .8;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        display:none;
+      }
+
+      .module {
+         margin:10px;
+         padding:5px;
+         border:solid 1px grey;   
+      }
 
     	.small {
     		-webkit-flex: 0 0 283px;
@@ -60,11 +72,11 @@
     		text-align:center;
     	}
 
-        .add {
-            -webkit-flex: 0 0 283px;
-            flex: 0 0 283px;
-            order:1;
-        }
+      .add {
+          -webkit-flex: 0 0 283px;
+          flex: 0 0 283px;
+          order:1;
+      }
 
     </style>
 
@@ -72,23 +84,36 @@
 
   <body class="mixpanel-platform-body">
 
+    <div id="overlay"></div>
+
     <div class="module-container">
 
-        <div id="add-module" class="add module"><div class='legend'>Add a module</div></div>
-
-        <div id="add-modal" class="modal">
-            
-        </div>
+      <div id="add-module" class="add module"><div class='legend'>Add a module</div></div>
+      <div id="add-modal" class="modal">
+          
+      </div>
 	
     </div>
 
     <script type="text/javascript">
-        var module = "<div class='small module'><div class='add-button'>+</div><div class='legend'>Add your first module.</div></div>";
-        var modal = 
+      var module = "<div class='small module'><div class='legend'>Add your first module.</div></div>";
+      var modal = "<div class='modal'></div>";
+      // var overlay = "<div id='overlay'></div>";
 
-        $("#add-module").click(function(){
+      $("#add-module").click(function(){
+        $("#overlay").toggle();
+        $(".module-container").append(module);
+      });
 
-        });
+      // Handle closing of the overlay
+      $("#overlay").click(function(){
+          if ($(this).css("display") == "none") {
+            // Do nothing
+          } else {
+            $(this).toggle();
+          }
+      });
+
     </script>
 
   </body>
