@@ -96,13 +96,18 @@
     </div>
 
     <script type="text/javascript">
-      var module = "<div class='small module'><div class='legend'>Add your first module.</div></div>";
+      var module = "<div class='module'><div class='legend'>Add your first module.</div></div>";
       var modal = "<div class='modal'></div>";
       // var overlay = "<div id='overlay'></div>";
 
+      var addModule = function(container,size){
+        container.append("<div class='"+size+" module'><div class='legend'>Add your first module.</div></div>");
+
+      };
+
       $("#add-module").click(function(){
         $("#overlay").toggle();
-        $(".module-container").append(module);
+        addModule($(".module-container"),"large");
       });
 
       // Handle closing of the overlay
