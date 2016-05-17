@@ -5,8 +5,12 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
-    
+
     <style type="text/css">
+
+      form {
+        padding:10px 0 0 0;
+      }
     	
     	.module-container {
     		padding:10px;
@@ -24,32 +28,55 @@
     		align-content: stretch;
     	}
 
-    	.small-module {
-    		margin:10px;
-    		padding:5px;
-    		border:solid 1px grey;
-    		/*width:288px;*/
+      .modal {
+        display: none;
+        z-index:100;
+        background-color: white;
+        position: fixed;
+        padding: 20px;
+        left: 341px;
+        top: 125px;
+        width: 280px;
+        border: 1px grey solid;
+        margin: auto;
+      }
+
+      #overlay {
+        background-color: #3c4c63;
+        height: 100%;
+        left: 0;
+        opacity: .8;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        display:none;
+      }
+
+      .module {
+         margin:10px;
+         padding:5px;
+         border:solid 1px grey;   
+      }
+
+    	.small {
     		-webkit-flex: 0 0 283px;
     		flex: 0 0 283px;
     	}
 
-    	.large-module {
-    		margin:10px;
-    		padding:5px;
-    		border:solid 1px black;
-    		/*width:780px;*/
+      .medium {
+          -webkit-flex: 0 0 598px;
+          flex: 0 0 598px;
+      }
+
+    	.large {
     		-webkit-flex: 0 0 914px;
     		flex: 0 0 914px;
     	}
 
-    	.medium-module {
-    		margin:10px;
-    		padding:5px;
-    		border:solid 1px white;
-    		/*width:780px;*/
-    		-webkit-flex: 0 0 598px;
-    		flex: 0 0 598px;
-    	}
+      .label {
+        padding-bottom:5px;
+      }
 
     	.add-button {
     		text-align:center;
@@ -62,23 +89,74 @@
     		text-align:center;
     	}
 
-    	.by {
-    		float: left;
-    		margin-right: 10px;
-    		line-height: 32px;
-    	}
+      .add {
+          -webkit-flex: 0 0 283px;
+          flex: 0 0 283px;
+          order:1;
+      }
 
     </style>
+
   </head>
+
   <body class="mixpanel-platform-body">
 
-    <div class="module-container">	
+    <div id="overlay"></div>
 
+    <div class="module-container">
+
+      <div id="add-module" class="add module"><div class='legend'>Add a module</div></div>
+
+      <div class="modal">
+        <span class="label">Please select a module:</span>
+        <form id="form" action="">
+          <input type="radio" name="Segmentation" value="segmentation"> Segmentation<br>
+          <input type="radio" name="Fuel Gauge" value="gauge"> Fuel Gauge<br>
+          <input type="radio" name="Top Values" value="other"> Top Values <br><br>
+        </form>
+        <button class="button" name="Submit">Submit</button>
+      </div>
+          
+      </div>
+	
     </div>
 
-	  <script>
+    <script type="text/javascript">
+      var modal = "<div class='modal'></div>";
+      // var overlay = "<div id='overlay'></div>";
 
-	  </script>
+      var addModule = function(container,size){
+        container.append("<div class='"+size+" module'><div class='legend'>Add your first module.</div></div>");
+      };
+
+      $("#add-module").click(function(){
+        $("#overlay").toggle();
+        $(".modal").toggle();
+          
+        // addModule($(".module-container"),"large");
+      });
+
+      // Handle closing of the overlay on click
+      $("#overlay").click(function(){
+          if ($(this).css("display") == "none") {
+            // Do nothing
+          } else {
+            $(".modal").css("display","none");
+            $(this).toggle();
+          }
+      });
+
+      // Alert the user if they submit without a selected value
+      $(".button").click(function(){
+        if ($("input[name='radio']:checked").length > 0){
+          // Go ahead and call "addModule"
+        }
+        else{
+         alert("Please select a module type.");
+        }
+      });
+
+    </script>
 
   </body>
 </html>
