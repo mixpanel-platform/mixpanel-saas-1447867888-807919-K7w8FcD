@@ -7,6 +7,10 @@
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
 
     <style type="text/css">
+
+      form {
+        padding:10px 0 0 0;
+      }
     	
     	.module-container {
     		padding:10px;
@@ -25,7 +29,13 @@
     	}
 
       .modal {
-
+        position: fixed;
+        padding: 20px;
+        left: 341px;
+        top: 125px;
+        width: 280px;
+        border: 1px grey solid;
+        margin: auto;
       }
 
       #overlay {
@@ -51,15 +61,19 @@
     		flex: 0 0 283px;
     	}
 
-        .medium {
-            -webkit-flex: 0 0 598px;
-            flex: 0 0 598px;
-        }
+      .medium {
+          -webkit-flex: 0 0 598px;
+          flex: 0 0 598px;
+      }
 
     	.large {
     		-webkit-flex: 0 0 914px;
     		flex: 0 0 914px;
     	}
+
+      .label {
+        padding-bottom:5px;
+      }
 
     	.add-button {
     		text-align:center;
@@ -89,24 +103,31 @@
     <div class="module-container">
 
       <div id="add-module" class="add module"><div class='legend'>Add a module</div></div>
-      <div id="add-modal" class="modal">
+
+      <div class="modal">
+        <span class="label">Please select a module:</span>
+        <form action="">
+          <input type="radio" name="Segmentation" value="segmentation"> Segmentation<br>
+          <input type="radio" name="Fuel Gauge" value="gauge"> Fuel Gauge<br>
+          <input type="radio" name="Top Values" value="other"> Top Values
+        </form>
+      </div>
           
       </div>
 	
     </div>
 
     <script type="text/javascript">
-      var module = "<div class='module'><div class='legend'>Add your first module.</div></div>";
       var modal = "<div class='modal'></div>";
       // var overlay = "<div id='overlay'></div>";
 
       var addModule = function(container,size){
         container.append("<div class='"+size+" module'><div class='legend'>Add your first module.</div></div>");
-
       };
 
       $("#add-module").click(function(){
         $("#overlay").toggle();
+          
         addModule($(".module-container"),"large");
       });
 
