@@ -112,7 +112,7 @@
         <form id="form" action="">
           <input type="radio" name="Segmentation" value="segmentation"> Segmentation<br>
           <input type="radio" name="Fuel Gauge" value="gauge"> Fuel Gauge<br>
-          <input type="radio" name="Top Values" value="other"> Top Values <br><br>
+          <input type="radio" name="Top Values" value="top"> Top Values <br><br>
         </form>
         <button class="button" name="Submit">Submit</button>
       </div>
@@ -143,18 +143,31 @@
           } else {
             $(".modal").css("display","none");
             $(this).toggle();
+            $(this).checked = false;
           }
       });
 
       // Alert the user if they submit without a selected value
       $(".button").click(function(){
-        if ($("input[name='radio']:checked").length > 0){
-          // Go ahead and call "addModule"
+        if ($("input[type='radio']:checked").length > 0){
+          val = $("input[type='radio']:checked").val();
+          console.log(val);
+          // Add module here
+          $(this).checked = false;
         }
         else{
-         alert("Please select a module type.");
+         alert("Please select a module.");
         }
       });
+
+      // Check one radio button at a time
+      $(document).ready(function () {
+        $('input[type=radio]').change(function() {
+            // When any radio button on the page is selected,
+            // then deselect all other radio buttons.
+            $('input[type=radio]:checked').not(this).prop('checked', false);
+        });
+      })
 
     </script>
 
