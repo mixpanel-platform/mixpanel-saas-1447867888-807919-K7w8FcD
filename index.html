@@ -5,7 +5,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
-
     <style type="text/css">
 
       form {
@@ -29,6 +28,9 @@
     	}
 
       .modal {
+        display: none;
+        z-index:100;
+        background-color: white;
         position: fixed;
         padding: 20px;
         left: 341px;
@@ -43,7 +45,7 @@
         height: 100%;
         left: 0;
         opacity: .8;
-        position: absolute;
+        position: fixed;
         top: 0;
         width: 100%;
         z-index: 10;
@@ -51,6 +53,7 @@
       }
 
       .module {
+        height:250px;
          margin:10px;
          padding:5px;
          border:solid 1px grey;   
@@ -67,6 +70,7 @@
       }
 
     	.large {
+        height:400px;
     		-webkit-flex: 0 0 914px;
     		flex: 0 0 914px;
     	}
@@ -87,11 +91,11 @@
     	}
 
       .add {
+          height:20px;
           -webkit-flex: 0 0 283px;
           flex: 0 0 283px;
           order:1;
       }
-
     </style>
 
   </head>
@@ -106,11 +110,12 @@
 
       <div class="modal">
         <span class="label">Please select a module:</span>
-        <form action="">
+        <form id="form" action="">
           <input type="radio" name="Segmentation" value="segmentation"> Segmentation<br>
           <input type="radio" name="Fuel Gauge" value="gauge"> Fuel Gauge<br>
-          <input type="radio" name="Top Values" value="other"> Top Values
+          <input type="radio" name="Top Values" value="top"> Top Values <br><br>
         </form>
+        <button class="button" name="Submit">Submit</button>
       </div>
           
       </div>
@@ -121,26 +126,60 @@
       var modal = "<div class='modal'></div>";
       // var overlay = "<div id='overlay'></div>";
 
-      var addModule = function(container,size){
-        container.append("<div class='"+size+" module'><div class='legend'>Add your first module.</div></div>");
+      // Add modules. Pass a container and the size of the module.
+      var addModule = function(container,type){
+        var size = type == "segmentation"? "large" : (type == "top" ? "medium" : "small");
+        container.append("<div class='"+type+" "+size+" module'><div class='legend'>This is a "+type+" module.</div></div>");
       };
+
+      // var closeModal = function(){
+      //   $(".modal").css("display","none");
+      //   $(this).toggle();
+      //   $(this).checked = false;
+      // }
 
       $("#add-module").click(function(){
         $("#overlay").toggle();
-          
-        addModule($(".module-container"),"large");
+        $(".modal").toggle();
       });
 
-      // Handle closing of the overlay
+      // Handle closing of the overlay on click
       $("#overlay").click(function(){
-          if ($(this).css("display") == "none") {
-            // Do nothing
-          } else {
-            $(this).toggle();
-          }
+        if ($(this).css("display") == "none") {
+          // Do nothing
+        } else {
+          $(".modal").css("display","none");
+          $(this).toggle();
+          $(this).checked = false;
+        }
       });
+
+      // Add a module and alert the user if they submit without a selected value
+      $(".button").click(function(){
+        if ($("input[type='radio']:checked").length > 0){
+          val = $("input[type='radio']:checked").val();
+          console.log(val);
+          addModule($(".module-container"),val);
+
+          // Close modal and overlay after submit and also clear selections
+          $(".modal").css("display","none");
+          $("#overlay").toggle();
+          $("input[type='radio']:checked").prop("checked",false);
+        }
+        else{
+         alert("Please select a module.");
+        }
+      });
+
+      // Check one radio button at a time
+      $(document).ready(function () {
+        $('input[type=radio]').change(function() {
+          // When any radio button on the page is selected,
+          // then deselect all other radio buttons.
+          $('input[type=radio]:checked').not(this).prop('checked', false);
+        });
+      })
 
     </script>
-
   </body>
 </html>
