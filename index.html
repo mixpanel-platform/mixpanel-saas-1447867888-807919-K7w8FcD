@@ -123,35 +123,44 @@
       // var overlay = "<div id='overlay'></div>";
 
       // Add modules. Pass a container and the size of the module.
-      var addModule = function(container,size){
-        container.append("<div class='"+size+" module'><div class='legend'>Add your first module.</div></div>");
+      var addModule = function(container,type){
+        var size = type == "segmentation"? "large" : (type == "top" ? "medium" : "small");
+        container.append("<div class='"+type+" "+size+" module'><div class='legend'>This is a "+type+" module.</div></div>");
       };
+
+      // var closeModal = function(){
+      //   $(".modal").css("display","none");
+      //   $(this).toggle();
+      //   $(this).checked = false;
+      // }
 
       $("#add-module").click(function(){
         $("#overlay").toggle();
         $(".modal").toggle();
-          
-        // addModule($(".module-container"),"large");
       });
 
       // Handle closing of the overlay on click
       $("#overlay").click(function(){
-          if ($(this).css("display") == "none") {
-            // Do nothing
-          } else {
-            $(".modal").css("display","none");
-            $(this).toggle();
-            $(this).checked = false;
-          }
+        if ($(this).css("display") == "none") {
+          // Do nothing
+        } else {
+          $(".modal").css("display","none");
+          $(this).toggle();
+          $(this).checked = false;
+        }
       });
 
-      // Alert the user if they submit without a selected value
+      // Add a module and alert the user if they submit without a selected value
       $(".button").click(function(){
         if ($("input[type='radio']:checked").length > 0){
           val = $("input[type='radio']:checked").val();
           console.log(val);
-          // Add module here
-          $(this).checked = false;
+          addModule($(".module-container"),val);
+
+          // Close modal and overlay after submit and also clear selections
+          $(".modal").css("display","none");
+          $("#overlay").toggle();
+          $("input[type='radio']:checked").prop("checked",false);
         }
         else{
          alert("Please select a module.");
@@ -161,9 +170,9 @@
       // Check one radio button at a time
       $(document).ready(function () {
         $('input[type=radio]').change(function() {
-            // When any radio button on the page is selected,
-            // then deselect all other radio buttons.
-            $('input[type=radio]:checked').not(this).prop('checked', false);
+          // When any radio button on the page is selected,
+          // then deselect all other radio buttons.
+          $('input[type=radio]:checked').not(this).prop('checked', false);
         });
       })
 
