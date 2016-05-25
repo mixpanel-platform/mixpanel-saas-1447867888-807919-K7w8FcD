@@ -13,7 +13,6 @@
     	
     	.module-container {
     		padding:10px;
-    		border:solid 1px grey;
     		width:945px;
     		display: -webkit-flex;
     		display: flex;
@@ -36,7 +35,6 @@
         left: 341px;
         top: 125px;
         width: 280px;
-        border: 1px grey solid;
         margin: auto;
       }
 
@@ -55,8 +53,8 @@
       .module {
         height:250px;
          margin:10px;
-         padding:5px;
-         border:solid 1px grey;   
+         padding:5px;  
+         border:1px gray solid;
       }
 
       .module .legend {
@@ -111,7 +109,6 @@
         height:30px;
         -webkit-flex: 0 0 130px;
         flex: 0 0 130px;
-        border:1px gray solid;
         border-radius: 3px;
         background-color: white;
         cursor: pointer;
@@ -126,7 +123,7 @@
 
     <div class="module-container">
 
-      <div class='segmentation1 large module'>
+<!--       <div class='segmentation1 large module'>
         <div class='legend'>
           <p class="label">Select an event:</p>
           <div class="eventDropdown"></div>
@@ -134,10 +131,10 @@
             <div class="legend">Run</div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class='medium module'><div class='legend'>#</div></div>
-      <div class='small module'><div class='legend'>#</div></div>
+      <!-- <div class='medium module'><div class='legend'>#</div></div>
+      <div class='small module'><div class='legend'>#</div></div> -->
 
       <div id="add-module" class="add module button"><div class='legend'>Add a module</div></div>
 
@@ -149,7 +146,7 @@
           <input type="radio" name="Fuel Gauge" value="gauge"> Fuel Gauge<br>
           <input type="radio" name="Top Values" value="top"> Top Values <br><br>
         </form>
-        <button id ="submit" class="button" name="Submit">Submit</button>
+        <div id="submit" class="button" name="Submit">Submit</div>
       </div>
           
       </div>
@@ -157,6 +154,7 @@
     </div>
 
     <script type="text/javascript">
+      var num=1;
       var modal = "<div class='modal'></div>";
 
       // Add modules. Pass a container and the size of the module.
@@ -166,15 +164,18 @@
 
         // Based on module type, append appropriate HTML string.
         if (type == "segmentation") {
-          module = "<div class='"+type+" "+size+" module'><div class='legend'>This is a "+type+" module.</div></div>";
+          module = "<div class='"+type+num+" "+size+" module'><div class='legend'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button' onclick='alert("+num+")'><div class='legend'>Run</div></div></div></div>";
         } else if (type == "top" ) {
-          module = "<div class='"+type+" "+size+" module'><div class='legend'>This is a "+type+" module.</div></div>";
+          // Add code 
         } else {
-          module = "<div class='"+type+" "+size+" module'><div class='legend'>This is a "+type+" module.</div></div>"
+          // Add code
         };
 
         // Append HTML to container.
         container.append(module);
+        $(".eventDropdown").MPEventSelect();
+
+        num++;
       };
 
       // When user clicks "Add Module," add grey overlay and trigger the module selection modal.
