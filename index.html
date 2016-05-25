@@ -77,10 +77,14 @@
       }
 
     	.large {
-        height:400px;
+        height:435px;
     		-webkit-flex: 0 0 914px;
     		flex: 0 0 914px;
     	}
+
+      .large .mixpanel-platform-output {
+        bottom:108px;
+      }
 
       .label {
         margin:5px 0 5px 0;
@@ -100,7 +104,6 @@
       }
 
       .eventDropdown {
-        /*margin-top:5px;*/
       }
 
       .button {
@@ -123,13 +126,13 @@
 
     <div class="module-container">
 
-      <div class='large module'>
+      <div class='segmentation1 large module'>
         <div class='legend'>
-        <p class="label">Select an event:</p>
-        <div class="eventDropdown"></div>
-        <div class="button">
-          <div class="legend">Run</div>
-        </div>
+          <p class="label">Select an event:</p>
+          <div class="eventDropdown"></div>
+          <div class="segmentation1Button button">
+            <div class="legend">Run</div>
+          </div>
         </div>
       </div>
 
@@ -210,15 +213,56 @@
 
       // Check one radio button at a time
       $(document).ready(function () {
-        $('input[type=radio]').change(function() {
+        $("input[type=radio]").change(function() {
           // When any radio button on the page is selected,
           // then deselect all other radio buttons.
-          $('input[type=radio]:checked').not(this).prop('checked', false);
+          $("input[type=radio]:checked").not(this).prop("checked", false);
         });
       })
 
       // MPPlatform + JQL Queries
-      $('.eventDropdown').MPEventSelect();
+      $(document).ready(function() {
+
+        // Populate various Platform visualizations and components
+        $(".eventDropdown").MPEventSelect();
+
+        // On click, run query.
+        // $(".segmentation1").click(function(){
+        //   MP.api.segment('Button clicked', '$city', {limit: 10}).done(function(results) {
+        //      $('<div></div>').appendTo('body').MPTable({ // create table; try scrolling horizontally over demo below
+        //        data: results,
+        //        showPercentages: true,
+        //        firstColHeader: 'Button clicked / city'
+        //      });
+        //    });
+        // });
+
+      var data = {
+        'segment1': {
+              '2010-09-01': 10,
+              '2010-09-02': 11,
+              '2010-09-03': 8
+          },
+          'segment2': {
+              '2010-09-01': 1,
+              '2010-09-02': 18,
+              '2010-09-03': 17
+          },
+          'segment3': {
+              '2010-09-01': 32,
+              '2010-09-02': 37,
+              '2010-09-03': 30
+          }
+      };
+      $(".segmentation1Button").click(function() {
+        var lineChart = $('<div></div>').appendTo('.segmentation1').MPChart({chartType: 'line', highchartsOptions: {
+          tooltip: {
+            backgroundColor: '#fffce7'  // Make tooltip background yellow
+          }
+        }});                                // Create a line chart
+        lineChart.MPChart('setData', data); // Set the chart's data
+      });
+    });
 
     </script>
   </body>
