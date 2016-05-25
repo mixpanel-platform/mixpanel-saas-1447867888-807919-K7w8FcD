@@ -154,6 +154,24 @@
     </div>
 
     <script type="text/javascript">
+      var data = {
+        'segment1': {
+              '2010-09-01': 10,
+              '2010-09-02': 11,
+              '2010-09-03': 8
+          },
+          'segment2': {
+              '2010-09-01': 1,
+              '2010-09-02': 18,
+              '2010-09-03': 17
+          },
+          'segment3': {
+              '2010-09-01': 32,
+              '2010-09-02': 37,
+              '2010-09-03': 30
+          }
+      };
+      
       var num=1;
       var modal = "<div class='modal'></div>";
 
@@ -199,7 +217,6 @@
       $("#submit").click(function(){
         if ($("input[type='radio']:checked").length > 0){
           val = $("input[type='radio']:checked").val();
-          console.log(val);
           addModule($(".module-container"),val);
 
           // Close modal and overlay after submit and also clear selections
@@ -221,13 +238,24 @@
         });
       })
 
-      // Make queries module per module
-      var queryData = function(num){
-        console.log(num);
-      };
-
       // MPPlatform + JQL Queries
       $(document).ready(function() {
+
+        // Make queries module per module
+        var queryData = function(num){
+
+          $(".segmentation"+num+"Button").click(function() {
+            var parentElementClass = ".segmentation"+num;
+            console.log(parentElementClass);
+
+            var lineChart = $('<div></div>').appendTo(parentElementClass).MPChart({chartType: 'line', highchartsOptions: {
+              tooltip: {
+                backgroundColor: '#fffce7'  // Make tooltip background yellow
+              }
+            }});                                // Create a line chart
+            lineChart.MPChart('setData', data); // Set the chart's data
+          });
+        };
 
         // Populate various Platform visualizations and components
         $(".eventDropdown").MPEventSelect();
@@ -243,31 +271,14 @@
         //    });
         // });
 
-      var data = {
-        'segment1': {
-              '2010-09-01': 10,
-              '2010-09-02': 11,
-              '2010-09-03': 8
-          },
-          'segment2': {
-              '2010-09-01': 1,
-              '2010-09-02': 18,
-              '2010-09-03': 17
-          },
-          'segment3': {
-              '2010-09-01': 32,
-              '2010-09-02': 37,
-              '2010-09-03': 30
-          }
-      };
-      $(".segmentation1Button").click(function() {
-        var lineChart = $('<div></div>').appendTo('.segmentation1').MPChart({chartType: 'line', highchartsOptions: {
-          tooltip: {
-            backgroundColor: '#fffce7'  // Make tooltip background yellow
-          }
-        }});                                // Create a line chart
-        lineChart.MPChart('setData', data); // Set the chart's data
-      });
+      // $(".segmentation1Button").click(function() {
+      //   var lineChart = $('<div></div>').appendTo('.segmentation1').MPChart({chartType: 'line', highchartsOptions: {
+      //     tooltip: {
+      //       backgroundColor: '#fffce7'  // Make tooltip background yellow
+      //     }
+      //   }});                                // Create a line chart
+      //   lineChart.MPChart('setData', data); // Set the chart's data
+      // });
     });
 
     </script>
