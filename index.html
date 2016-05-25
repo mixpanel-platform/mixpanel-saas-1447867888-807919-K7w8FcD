@@ -164,7 +164,7 @@
 
         // Based on module type, append appropriate HTML string.
         if (type == "segmentation") {
-          module = "<div class='"+type+num+" "+size+" module'><div class='legend'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button' onclick='alert("+num+")'><div class='legend'>Run</div></div></div></div>";
+          module = "<div class='"+type+num+" "+size+" module'><div class='legend'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button' onclick='queryData("+num+")'><div class='legend'>Run</div></div></div></div>";
         } else if (type == "top" ) {
           // Add code 
         } else {
@@ -220,6 +220,11 @@
           $("input[type=radio]:checked").not(this).prop("checked", false);
         });
       })
+
+      // Make queries module per module
+      var queryData = function(num){
+        console.log(num);
+      };
 
       // MPPlatform + JQL Queries
       $(document).ready(function() {
