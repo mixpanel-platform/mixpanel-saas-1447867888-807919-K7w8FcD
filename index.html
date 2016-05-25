@@ -81,7 +81,7 @@
     	}
 
       .large .mixpanel-platform-output {
-        bottom:108px;
+        bottom:106px;
       }
 
       .label {
@@ -175,6 +175,21 @@
       var num=1;
       var modal = "<div class='modal'></div>";
 
+      // Make queries module per module
+      var queryData = function(num){
+
+        var parentElementClass = ".segmentation"+num;
+        console.log(parentElementClass);
+
+        var lineChart = $('<div></div>').appendTo(parentElementClass).MPChart({chartType: 'line', highchartsOptions: {
+          tooltip: {
+            backgroundColor: '#fffce7'  // Make tooltip background yellow
+          }
+        }});                                // Create a line chart
+        lineChart.MPChart('setData', data); // Set the chart's data
+        
+      };
+
       // Add modules. Pass a container and the size of the module.
       var addModule = function(container,type){
         // Nasty ternary operator
@@ -240,22 +255,6 @@
 
       // MPPlatform + JQL Queries
       $(document).ready(function() {
-
-        // Make queries module per module
-        var queryData = function(num){
-
-          $(".segmentation"+num+"Button").click(function() {
-            var parentElementClass = ".segmentation"+num;
-            console.log(parentElementClass);
-
-            var lineChart = $('<div></div>').appendTo(parentElementClass).MPChart({chartType: 'line', highchartsOptions: {
-              tooltip: {
-                backgroundColor: '#fffce7'  // Make tooltip background yellow
-              }
-            }});                                // Create a line chart
-            lineChart.MPChart('setData', data); // Set the chart's data
-          });
-        };
 
         // Populate various Platform visualizations and components
         $(".eventDropdown").MPEventSelect();
