@@ -114,6 +114,15 @@
         cursor: pointer;
       }
 
+      #submit {
+        background-color:#dee3ec;
+        line-height: 20px;
+        width:80px;
+        height:20px;
+        text-align: center;
+        border:1px gray solid;
+      }
+
     </style>
   </head>
 
@@ -259,25 +268,6 @@
         // Populate various Platform visualizations and components
         $(".eventDropdown").MPEventSelect();
 
-        // On click, run query.
-        // $(".segmentation1").click(function(){
-        //   MP.api.segment('Button clicked', '$city', {limit: 10}).done(function(results) {
-        //      $('<div></div>').appendTo('body').MPTable({ // create table; try scrolling horizontally over demo below
-        //        data: results,
-        //        showPercentages: true,
-        //        firstColHeader: 'Button clicked / city'
-        //      });
-        //    });
-        // });
-
-      // $(".segmentation1Button").click(function() {
-      //   var lineChart = $('<div></div>').appendTo('.segmentation1').MPChart({chartType: 'line', highchartsOptions: {
-      //     tooltip: {
-      //       backgroundColor: '#fffce7'  // Make tooltip background yellow
-      //     }
-      //   }});                                // Create a line chart
-      //   lineChart.MPChart('setData', data); // Set the chart's data
-      // });
     });
 
     </script>
