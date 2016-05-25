@@ -59,6 +59,13 @@
          border:solid 1px grey;   
       }
 
+      .module .legend {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        margin:auto;
+      }
+
     	.small {
     		-webkit-flex: 0 0 283px;
     		flex: 0 0 283px;
@@ -76,26 +83,37 @@
     	}
 
       .label {
-        padding-bottom:5px;
+        margin:5px 0 5px 0;
       }
 
-    	.add-button {
-    		text-align:center;
-    		font-size:24px;
-    		color:grey;
-    	}
-
     	.legend {
+        width:260px;
     		padding-top:2px;
     		text-align:center;
     	}
 
       .add {
-          height:20px;
-          -webkit-flex: 0 0 283px;
-          flex: 0 0 283px;
+          height:30px;
+          -webkit-flex: 0 0 240px;
+          flex: 0 0 240px;
           order:1;
       }
+
+      .eventDropdown {
+        /*margin-top:5px;*/
+      }
+
+      .button {
+        margin: 5px 0 5px;
+        height:30px;
+        -webkit-flex: 0 0 130px;
+        flex: 0 0 130px;
+        border:1px gray solid;
+        border-radius: 3px;
+        background-color: white;
+        cursor: pointer;
+      }
+
     </style>
   </head>
 
@@ -105,14 +123,22 @@
 
     <div class="module-container">
 
-      <div class='large module'><div class='legend'>#</div></div>
+      <div class='large module'>
+        <div class='legend'>
+        <p class="label">Select an event:</p>
+        <div class="eventDropdown"></div>
+        <div class="button">
+          <div class="legend">Run</div>
+        </div>
+        </div>
+      </div>
 
       <div class='medium module'><div class='legend'>#</div></div>
-
       <div class='small module'><div class='legend'>#</div></div>
 
-      <div id="add-module" class="add module"><div class='legend'>Add a module</div></div>
+      <div id="add-module" class="add module button"><div class='legend'>Add a module</div></div>
 
+      <!-- HTML for modal. Hidden until someone adds a module. -->
       <div class="modal">
         <span class="label">Please select a module:</span>
         <form id="form" action="">
@@ -120,7 +146,7 @@
           <input type="radio" name="Fuel Gauge" value="gauge"> Fuel Gauge<br>
           <input type="radio" name="Top Values" value="top"> Top Values <br><br>
         </form>
-        <button class="button" name="Submit">Submit</button>
+        <button id ="submit" class="button" name="Submit">Submit</button>
       </div>
           
       </div>
@@ -166,7 +192,7 @@
       });
 
       // Add a module and alert the user if they submit without a selected value
-      $(".button").click(function(){
+      $("#submit").click(function(){
         if ($("input[type='radio']:checked").length > 0){
           val = $("input[type='radio']:checked").val();
           console.log(val);
@@ -190,6 +216,9 @@
           $('input[type=radio]:checked').not(this).prop('checked', false);
         });
       })
+
+      // MPPlatform + JQL Queries
+      $('.eventDropdown').MPEventSelect();
 
     </script>
   </body>
