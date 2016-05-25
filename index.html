@@ -79,13 +79,13 @@
       }
 
     	.large {
-        height:435px;
+        height:440px;
     		-webkit-flex: 0 0 914px;
     		flex: 0 0 914px;
     	}
 
       .large .mixpanel-platform-output {
-        bottom:102px;
+        bottom:110px;
       }
 
       .label {
@@ -93,6 +93,7 @@
       }
 
     	.legend {
+        color: #039be5;
         width:260px;
     		padding-top:2px;
     		text-align:center;
@@ -132,10 +133,13 @@
       #submit {
         background-color:#dee3ec;
         line-height: 20px;
-        width:80px;
         height:20px;
         text-align: center;
         border:1px gray solid;
+      }
+
+      #submit .legend {
+        color:white !important;
       }
 
     </style>
@@ -158,7 +162,7 @@
           <input type="radio" name="Fuel Gauge" value="gauge"> Fuel Gauge<br>
           <input type="radio" name="Top Values" value="top"> Top Values <br><br>
         </form>
-        <div id="submit" class="button" name="Submit">Submit</div>
+        <div id="submit" class="module button" name="Submit"><div class="legend">Submit</div></div>
       </div>
           
       </div>
@@ -230,11 +234,11 @@
 
         // Based on module type, append appropriate HTML string.
         if (type == "segmentation") {
-          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button' onclick='segmentationQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
+          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button module' onclick='segmentationQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
         } else if (type == "top" ) {
-          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button' onclick='topQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
+          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button module' onclick='topQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
         } else {
-          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button' onclick='gaugeQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
+          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button module' onclick='gaugeQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
         };
 
         // Append HTML to container.
