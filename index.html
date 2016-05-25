@@ -105,6 +105,12 @@
 
     <div class="module-container">
 
+      <div class='large module'><div class='legend'>#</div></div>
+
+      <div class='medium module'><div class='legend'>#</div></div>
+
+      <div class='small module'><div class='legend'>#</div></div>
+
       <div id="add-module" class="add module"><div class='legend'>Add a module</div></div>
 
       <div class="modal">
@@ -123,20 +129,26 @@
 
     <script type="text/javascript">
       var modal = "<div class='modal'></div>";
-      // var overlay = "<div id='overlay'></div>";
 
       // Add modules. Pass a container and the size of the module.
       var addModule = function(container,type){
-        var size = type == "segmentation"? "large" : (type == "top" ? "medium" : "small");
-        container.append("<div class='"+type+" "+size+" module'><div class='legend'>This is a "+type+" module.</div></div>");
+        // Nasty ternary operator
+        var size = type == "segmentation" ? "large" : (type == "top" ? "medium" : "small");
+
+        // Based on module type, append appropriate HTML string.
+        if (type == "segmentation") {
+          module = "<div class='"+type+" "+size+" module'><div class='legend'>This is a "+type+" module.</div></div>";
+        } else if (type == "top" ) {
+          module = "<div class='"+type+" "+size+" module'><div class='legend'>This is a "+type+" module.</div></div>";
+        } else {
+          module = "<div class='"+type+" "+size+" module'><div class='legend'>This is a "+type+" module.</div></div>"
+        };
+
+        // Append HTML to container.
+        container.append(module);
       };
 
-      // var closeModal = function(){
-      //   $(".modal").css("display","none");
-      //   $(this).toggle();
-      //   $(this).checked = false;
-      // }
-
+      // When user clicks "Add Module," add grey overlay and trigger the module selection modal.
       $("#add-module").click(function(){
         $("#overlay").toggle();
         $(".modal").toggle();
