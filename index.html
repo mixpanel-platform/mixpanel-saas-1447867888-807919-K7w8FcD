@@ -106,6 +106,10 @@
         order:1;
       }
 
+      .black {
+        color:black;
+      }
+
       .eventDropdown {
       }
 
@@ -234,11 +238,11 @@
 
         // Based on module type, append appropriate HTML string.
         if (type == "segmentation") {
-          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button module' onclick='segmentationQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
+          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label black'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button module' onclick='segmentationQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
         } else if (type == "top" ) {
-          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button module' onclick='topQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
+          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label black'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button module' onclick='topQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
         } else {
-          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button module' onclick='gaugeQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
+          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label black'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button module' onclick='gaugeQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
         };
 
         // Append HTML to container.
