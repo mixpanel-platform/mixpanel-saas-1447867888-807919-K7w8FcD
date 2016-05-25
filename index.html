@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
     <style type="text/css">
 
       form {
@@ -81,7 +82,7 @@
     	}
 
       .large .mixpanel-platform-output {
-        bottom:108px;
+        bottom:102px;
       }
 
       .label {
@@ -95,13 +96,24 @@
     	}
 
       .add {
-          height:30px;
-          -webkit-flex: 0 0 240px;
-          flex: 0 0 240px;
-          order:1;
+        height:30px;
+        -webkit-flex: 0 0 240px;
+        flex: 0 0 240px;
+        order:1;
       }
 
       .eventDropdown {
+      }
+
+      .fuelGauge {
+        font-size:16px;
+        text-align: center;
+        position: relative;
+        bottom:10px;
+      }
+
+      .fuelGauge .legend {
+        top:22px;
       }
 
       .button {
@@ -114,6 +126,15 @@
         cursor: pointer;
       }
 
+      #submit {
+        background-color:#dee3ec;
+        line-height: 20px;
+        width:80px;
+        height:20px;
+        text-align: center;
+        border:1px gray solid;
+      }
+
     </style>
 
   </head>
@@ -123,19 +144,6 @@
     <div id="overlay"></div>
 
     <div class="module-container">
-
-<!--       <div class='segmentation1 large module'>
-        <div class='legend'>
-          <p class="label">Select an event:</p>
-          <div class="eventDropdown"></div>
-          <div class="segmentation1Button button">
-            <div class="legend">Run</div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- <div class='medium module'><div class='legend'>#</div></div>
-      <div class='small module'><div class='legend'>#</div></div> -->
 
       <div id="add-module" class="add module button"><div class='legend'>Add a module</div></div>
 
@@ -176,18 +184,54 @@
       var num=1;
       var modal = "<div class='modal'></div>";
 
+      // Make query for segmentation module
+      var segmentationQuery = function(num){
+        console.log("Running segmentationQuery("+num+")");
+        var parentElementClass = ".segmentation"+num;
+
+        // Use highcharts to bring in visualization
+        var lineChart = $('<div></div>').appendTo(parentElementClass).MPChart({chartType: 'line', highchartsOptions: {
+          tooltip: {
+            backgroundColor: '#fffce7'  // Make tooltip background yellow
+          }
+        }});                                // Create a line chart
+        lineChart.MPChart('setData', data); // Set the chart's data
+        
+      };
+
+      var topQuery = function(num){
+        console.log("Running topQuery("+num+")");
+        var parentElementClass = ".top"+num;
+        $(parentElementClass).find(".container").toggle();
+
+        // Use highcharts to bring in visualization
+        var table = $('<div></div>').appendTo(parentElementClass).MPTable({
+          showPercentages: 'true',
+          data: data,
+        });
+      };
+
+      // Make query for fuel gauge module
+      var gaugeQuery = function(num){
+        console.log("Running gaugeQuery("+num+")");
+        // var parentElementClass = ".gauge"+num;
+        // $(parentElementClass).find(".container").toggle();
+        // var fuelGauge = $('<div class="fuelGauge"></div>').appendTo(parentElementClass);
+
+      };
+
       // Add modules. Pass a container and the size of the module.
       var addModule = function(container,type){
-        // Nasty ternary operator
+        // Nasty ternary operator to determine size based on type of module
         var size = type == "segmentation" ? "large" : (type == "top" ? "medium" : "small");
 
         // Based on module type, append appropriate HTML string.
         if (type == "segmentation") {
-          module = "<div class='"+type+num+" "+size+" module'><div class='legend'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button' onclick='queryData("+num+")'><div class='legend'>Run</div></div></div></div>";
+          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button' onclick='segmentationQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
         } else if (type == "top" ) {
-          // Add code 
+          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button' onclick='topQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
         } else {
-          // Add code
+          module = "<div class='"+type+num+" "+size+" module'><div class='legend container'><p class='label'>Select an event:</p><div class='eventDropdown'></div><div class='"+type+num+"Button button' onclick='gaugeQuery("+num+")'><div class='legend'>Run</div></div></div></div>";
         };
 
         // Append HTML to container.
@@ -242,46 +286,10 @@
       // MPPlatform + JQL Queries
       $(document).ready(function() {
 
-        // Make queries module per module
-        var queryData = function(num){
-
-          $(".segmentation"+num+"Button").click(function() {
-            var parentElementClass = ".segmentation"+num;
-            console.log(parentElementClass);
-
-            var lineChart = $('<div></div>').appendTo(parentElementClass).MPChart({chartType: 'line', highchartsOptions: {
-              tooltip: {
-                backgroundColor: '#fffce7'  // Make tooltip background yellow
-              }
-            }});                                // Create a line chart
-            lineChart.MPChart('setData', data); // Set the chart's data
-          });
-        };
-
         // Populate various Platform visualizations and components
         $(".eventDropdown").MPEventSelect();
 
-        // On click, run query.
-        // $(".segmentation1").click(function(){
-        //   MP.api.segment('Button clicked', '$city', {limit: 10}).done(function(results) {
-        //      $('<div></div>').appendTo('body').MPTable({ // create table; try scrolling horizontally over demo below
-        //        data: results,
-        //        showPercentages: true,
-        //        firstColHeader: 'Button clicked / city'
-        //      });
-        //    });
-        // });
-
-      // $(".segmentation1Button").click(function() {
-      //   var lineChart = $('<div></div>').appendTo('.segmentation1').MPChart({chartType: 'line', highchartsOptions: {
-      //     tooltip: {
-      //       backgroundColor: '#fffce7'  // Make tooltip background yellow
-      //     }
-      //   }});                                // Create a line chart
-      //   lineChart.MPChart('setData', data); // Set the chart's data
-      // });
     });
-
     </script>
   </body>
 </html>
